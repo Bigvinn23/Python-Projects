@@ -4,11 +4,11 @@ This ReadMe is for documenting milestones in the development of the Snake game
 ---
 
 ## Basic Information
-- Project Start Date: July 1, 2022
-- Project End: Unspecified
+Project Start: July 1, 2022  
+Project End: Unspecified
 
 ## Milestones
-- Basic Window
+- Basic Window & Game Loop
 - Window Icon, Title & Background Color
 - Snake Parts
     - Head
