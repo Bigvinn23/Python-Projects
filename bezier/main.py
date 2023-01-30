@@ -1,5 +1,4 @@
 import pygame
-import bezier_visualization
 
 from sys import exit
 
@@ -65,6 +64,15 @@ while True:
             points.append(event.pos)
             if len(points) >= 2:
                 lines.append((points[-2], points[-1]))
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                print("hi")
+                points = []
+                lines = []
+                plotted_points = []
+                bezier_plots = []
+            if event.key == pygame.K_c:
+                frame_count = 0
 
 
     # draw the points
@@ -81,11 +89,15 @@ while True:
         bezier_plots.append(bezier(points, frame_count / reset_frame))
 
     # draw the plotted points
-    for point in bezier_plots:
-        pygame.draw.circle(screen, "red", point, 2)
+    #for point in bezier_plots:
+    #    pygame.draw.circle(screen, "red", point, 2)
+
+    # draw lines between the plotted points
+    for i in range(len(bezier_plots) - 1):
+        pygame.draw.line(screen, "red", bezier_plots[i], bezier_plots[i+1], 2)
         
 
     pygame.display.update()
-    clock.tick(240)
+    #clock.tick(500)
 
     
