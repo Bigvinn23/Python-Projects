@@ -42,7 +42,7 @@ points = []
 lines = []
 plotted_points = []
 frame_count = 0
-reset_frame = 3000
+reset_frame = 1000
 bezier_plots = []
 
 # Event Loop
