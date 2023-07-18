@@ -5,24 +5,36 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-driver = webdriver.Edge()
+from selenium.webdriver.edge.options import Options
+
+from bs4 import BeautifulSoup
+
+import json
+
+
+options = Options()
+options.add_argument("--headless")
+options.add_argument("disable-gpu")
+
+driver = webdriver.Edge(options=options)
 driver.implicitly_wait(10) # seconds
-driver.get("https://www.bing.com/chat")
 
-input_shadow_root_1 = driver.find_element(By.CSS_SELECTOR, "#b_sydConvCont>cib-serp").shadow_root
-input_shadow_root_2 = input_shadow_root_1.find_element(By.CSS_SELECTOR, "#cib-action-bar-main").shadow_root
-input_shadow_root_3 = input_shadow_root_2.find_element(By.CSS_SELECTOR, "cib-text-input").shadow_root
+driver.get("https://stardewvalleywiki.com/Stardew_Valley_Wiki")
 
-input_box = input_shadow_root_3.find_element(By.ID, 'searchbox')
+page_html = driver.page_source
 
-# input_box.send_keys('Hello')
-# input_box.send_keys(Keys.RETURN)
+soup = BeautifulSoup(page_html, 'html.parser')
 
-# time.sleep(15)
+print(soup.prettify())
 
-input_box.send_keys('tell me a joke')
-input_box.send_keys(Keys.RETURN)
+imgs = soup.find_all('img')
+srcs = [("https://stardewvalleywiki.com" + str(img.get('src'))) for img in imgs]
 
-time.sleep(30)
+src_json = json.dumps(srcs)
+
+with open ('imgs.json', "w") as outfile:
+    outfile.write(src_json)
+
+# time.sleep(10)
 
 driver.quit()
